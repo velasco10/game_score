@@ -123,7 +123,7 @@
 //   Widget build(BuildContext context) {
 //     return AnimatedBuilder(
 //       animation: controller,
-//       builder: _buildAnimation({context:context}),
+//       builder: _buildAnimation,
 //     );
 //   }
 // }
