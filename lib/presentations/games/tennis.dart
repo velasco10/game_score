@@ -1,50 +1,22 @@
-import 'package:flutter/material.dart';
-import 'package:game_score/utils/constants.dart';
+// import 'package:flutter/material.dart';
+// import './tennis_score.dart';
 
-class Tennis extends StatefulWidget {
-  const Tennis({super.key});
+// class Tennis extends StatefulWidget {
+//   // Resto del código del GamePage...
 
+//   void _showTennisScoreTable() {
+//     // Aquí se simula que las puntuaciones de ambos jugadores están disponibles.
+//     List<int> player1Scores = [0, 15, 30, 40, 40, 40];
+//     List<int> player2Scores = [0, 0, 15, 15, 30, 40];
 
-  @override
-  State<Tennis> createState() => _TennisState();
-}
-
-class _TennisState extends State<Tennis> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(Constants.tennisGame),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
-    );
-  }
-}
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => TennisScore(
+//           player1Scores: player1Scores,
+//           player2Scores: player2Scores,
+//         ),
+//       ),
+//     );
+//   }
+// }

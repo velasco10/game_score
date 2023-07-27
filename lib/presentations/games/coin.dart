@@ -1,129 +1,95 @@
-// import 'dart:math';
-// import 'dart:ui' as ui;
+import 'dart:math';
+import 'package:flutter/material.dart';
 
-// import 'package:flutter/material.dart';
+class Coin extends StatefulWidget {
+  const Coin({super.key});
 
-// class Coin extends StatelessWidget {
+  @override
+  _CoinState createState() => _CoinState();
+}
 
-//   // Constructor along with animation Tweens initialization
-//   Coin({Key? key, required this.controller}):
+class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  double _angleX = 0;
+  double _angleZ = 0;
+  bool _isHeads = true;
+  bool _isAnimating = false;
 
-//         // Reconstruction Tweens
-//         flip = Tween(begin: 0.0, end: 2 * pi)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.0, 0.4, curve: Curves.bounceIn))),
-//         size = Tween(begin: 80.0, end: 120.0)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.0, 0.4, curve: Curves.bounceIn))),
-//         elevation = Tween(begin: 15.0, end: 0.0)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.5, 0.7, curve: Curves.ease))),
-//         mouth = Tween(begin: 0.0, end: 1.0)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.8, 1.0))),
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
 
-//         // Color Tweens
-//         eyeColorAUR = ColorTween(begin: Colors.blueAccent, end: Colors.white12)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.7, 1.0))),
-//         eyeColorABL = ColorTween(begin: Colors.cyanAccent, end: Colors.white12)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.7, 1.0))),
-//         eyeColorBUR = ColorTween(begin: Colors.blueAccent, end: Colors.white12)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.0, 0.5, curve: Curves.bounceIn))),
-//         eyeColorBBL = ColorTween(begin: Colors.cyanAccent, end: Colors.blueAccent)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.0, 0.5))),
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
 
-//         mouthBordersColor = ColorTween(begin: Colors.black12, end: Colors.white30)
-//             .animate(CurvedAnimation(
-//             parent: controller,
-//             curve: const Interval(0.8, 1.0))),
-//         super(key: key);
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          _isAnimating = false;
+          _isHeads = Random().nextBool();
+          _angleX = 0;
+          _angleZ = 0;
+        });
+      }
+    });
+  }
 
-//   // Initialize variables
-//   // Reconstruction
-//   final Animation<double> flip;
-//   final Animation<double> size;
-//   final Animation<double> mouth;
-//   final Animation<double> elevation;
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-//   // Color
-//   final Animation<Color> eyeColorBUR;
-//   final Animation<Color> eyeColorBBL;
-//   final Animation<Color> eyeColorAUR;
-//   final Animation<Color> eyeColorABL;
-//   final Animation<Color> mouthBordersColor;
+  void _flipCoin() {
+    if (!_isAnimating) {
+      setState(() {
+        _isAnimating = true;
+        _angleX = 2 * pi;
+        _angleZ = Random().nextDouble() * pi - (pi / 2); // Random value between -pi/2 and pi/2
+      });
+      _controller.reset();
+      _controller.forward();
+    }
+  }
 
-//   final AnimationController controller;
-
-//   // Main function to build skeleton of the animation
-//   Widget _buildAnimation(BuildContext context) {
-//     return Stack(children: [
-//       Column(children: <Widget>[
-//         const Expanded(
-//           child: SizedBox(),
-//         ),
-//         SizedBox(
-//           height: MediaQuery.of(context).size.height * mouth.value,
-//           child: Container(
-//               decoration: BoxDecoration(
-//                 border: Border.all(width: 1.2, color: mouthBordersColor.value),
-//           )),
-//         ),
-//         const Expanded(
-//           child: SizedBox(),
-//         )
-//       ]),
-//       Center(
-//           child: GestureDetector(
-//             child: Transform(
-//               alignment: FractionalOffset.center,
-//               transform: Matrix4.rotationY(flip.value),
-//               child: Material(
-//                 shape: const CircleBorder(),
-//                 elevation: elevation.value,
-//                 shadowColor: Colors.blueAccent,
-//                 child: ShaderMask(
-//                   blendMode: BlendMode.srcIn,
-//                   shaderCallback: (Rect bounds) {
-//                   return ui.Gradient.linear(
-//                     const Offset(4.0, 24.0),
-//                     const Offset(24.0, 4.0),
-//                     [
-//                       (controller.value < 0.5) ? eyeColorBBL.value : eyeColorABL.value,
-//                       (controller.value < 0.5) ? eyeColorBUR.value : eyeColorAUR.value,
-//                     ],
-//                   );
-//                 },
-//                   child: Icon(
-//                   Icons.visibility,
-//                   size: controller.value < 0.5 ? size.value : 80.0,
-//                 )),
-//           ),
-//         ),
-//         onTap: () {
-//           controller.forward();
-//         },
-//       ))
-//     ]);
-//   }
-
-//   // Just holds Animation Builder and calls _buildAnimation
-//   @override
-//   Widget build(BuildContext context) {
-//     return AnimatedBuilder(
-//       animation: controller,
-//       builder: _buildAnimation,
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Lanzamiento de moneda'),
+      ),
+      body: Center(
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            double rotationAngleX = _angleX * _animation.value;
+            double rotationAngleZ = _angleZ * _animation.value;
+            return GestureDetector(
+              onTap: _flipCoin, // Al presionar el icono, se lanza la moneda.
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, 0.001)
+                  ..rotateX(rotationAngleX)
+                  ..rotateZ(rotationAngleZ),
+                child: Icon(
+                  _isHeads ? Icons.face : Icons.cancel,
+                  size: 150,
+                  color: Colors.blueGrey,
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _flipCoin,
+        child: const Icon(Icons.play_arrow),
+      ),
+    );
+  }
+}

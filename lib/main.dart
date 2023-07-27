@@ -21,15 +21,14 @@ class GameScore extends StatelessWidget {
         title: Constants.appName,
         debugShowCheckedModeBanner: false,
         theme: AppTheme( selectedColor: 1).theme(),
-        // title: Text(Constants.appName),
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
           '/': (BuildContext context) => const Menu(),
           '/chinchon': (BuildContext context) =>const Chinchon(),
-          // '/coin': (BuildContext context) =>const Coin(),
+          '/coin': (BuildContext context) =>const Coin(),
           '/counter': (BuildContext context) =>const Counter(),
           '/dice': (BuildContext context) =>const Dice(),
-          '/tennis': (BuildContext context) =>const Tennis(),
+          // '/tennis': (BuildContext context) =>const Tennis(),
         }
       );
 
