@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_score/presentations/menu/menu_list.dart';
 import '../utils/constants.dart';
 
 class Menu extends StatelessWidget {
@@ -6,64 +7,11 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            
-          }, 
-          child: Row(
-            children: [
-              const Icon(Icons.deck),
-              Text(Constants.chinchonGame),
-            ],
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            
-          }, 
-          child: Row(
-            children: [
-              const Icon(Icons.sports_tennis),
-              Text(Constants.tennisGame),
-            ],
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            
-          }, 
-          child: Row(
-            children: [
-              const Icon(Icons.casino),
-              Text(Constants.counterGame),
-            ],
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            
-          }, 
-          child: Row(
-            children: [
-              const Icon(Icons.casino),
-              Text(Constants.diceGame),
-            ],
-          ),
-        ),ElevatedButton(
-          onPressed: () {
-            
-          }, 
-          child: Row(
-            children: [
-              const Icon(Icons.casino),
-              Text(Constants.coinGame),
-            ],
-          ),
-        )
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(Constants.appName),
+      ),
+      body: const Center(child: MenuList())
     );
   }
 }

@@ -8,4 +8,7 @@ class Constants{
     static String diceGame = 'Lanzamiento de Dado';
     static String coinGame = 'Lanzamiento de Moneda';
 
+    static String roll = 'Lanzar';
+    
+
 }
