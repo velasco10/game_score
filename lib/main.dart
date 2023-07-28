@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:game_score/presentations/games/chinchon.dart';
 import 'package:game_score/presentations/games/coin.dart';
 import 'package:game_score/presentations/games/dice.dart';
 import 'package:game_score/presentations/games/tennis.dart';
@@ -29,7 +28,7 @@ class GameScore extends StatelessWidget {
           '/coin': (BuildContext context) =>const Coin(),
           '/counter': (BuildContext context) =>const Counter(),
           '/dice': (BuildContext context) =>const Dice(),
-          // '/tennis': (BuildContext context) =>const Tennis(),
+          '/tennis': (BuildContext context) =>const Tennis(),
         }
       );
 

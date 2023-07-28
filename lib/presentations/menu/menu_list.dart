@@ -22,7 +22,7 @@ class MenuList extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context, rootNavigator: true).pushNamed('/tennis');
+            Navigator.pushNamed(context, '/tennis');
           },
           child: Row(
             children: [
