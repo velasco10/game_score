@@ -55,21 +55,22 @@ class _ChinchonState extends State<Chinchon> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Nombre jugador ${i + 1}'),
-                        initialValue: widget.playerNames[i],
-                        onChanged: (value) {
-                          widget.playerNames[i] = value;
-                        },
+                      child: Text(
+                        widget.playerNames[i],
+                        style: const TextStyle(fontSize: 20),
                       ),
                     ),
-                    const SizedBox(width: 10),
                     Expanded(
                       child: TextField(
                         controller: _scoreInputControllers[i],
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(labelText: 'Puntuación'),
                       ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      _globalScores[i].toString(),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ],
                 ),
@@ -79,10 +80,6 @@ class _ChinchonState extends State<Chinchon> {
               onPressed: _confirmScores,
               child: const Text('Confirmar y sumar puntuaciones'),
             ),
-            const SizedBox(height: 20),
-            const Text('Puntuaciones Globales:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            for (int i = 0; i < _globalScores.length; i++)
-              Text('Jugador ${i + 1}: ${_globalScores[i]}', style: const TextStyle(fontSize: 18)),
           ],
         ),
       ),
