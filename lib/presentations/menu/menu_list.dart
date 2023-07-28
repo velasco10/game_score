@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_score/utils/constants.dart';
 
 class MenuList extends StatelessWidget {
   const MenuList({super.key});
@@ -12,11 +13,10 @@ class MenuList extends StatelessWidget {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pushNamed('/chinchon');
             },
-          child: const Row(
+          child: Row(
             children: [
-              Icon(Icons.deck),
-              // Text(Constants.chinchonGame),
-              Text('Chinchon'),
+              const Icon(Icons.deck),
+              Text(Constants.chinchonGame),
             ],
           ),
         ),
@@ -24,11 +24,10 @@ class MenuList extends StatelessWidget {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pushNamed('/tennis');
           },
-          child: const Row(
+          child: Row(
             children: [
-              Icon(Icons.sports_tennis),
-              // Text(Constants.tennisGame),
-              Text('Tenis'),
+              const Icon(Icons.sports_tennis),
+              Text(Constants.tennisGame)
             ],
           ),
         ),
@@ -36,11 +35,10 @@ class MenuList extends StatelessWidget {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pushNamed('/counter');
           },
-          child: const Row(
+          child: Row(
             children: [
-              Icon(Icons.exposure),
-              // Text(Constants.diceGame),
-              Text('Contador'),
+              const Icon(Icons.exposure),
+              Text(Constants.diceGame)
             ],
           ),
         ),
@@ -48,11 +46,10 @@ class MenuList extends StatelessWidget {
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pushNamed('/dice');
           },
-          child: const Row(
+          child: Row(
             children: [
-              Icon(Icons.casino),
-              // Text(Constants.diceGame),
-              Text('Lanzamiento de Dado'),
+              const Icon(Icons.casino),
+              Text(Constants.diceGame)
             ],
           ),
         ),
@@ -60,11 +57,10 @@ class MenuList extends StatelessWidget {
           onPressed: (){
             Navigator.of(context, rootNavigator: true).pushNamed('/coin');
           },
-          child: const Row(
+          child: Row(
             children: [
-              Icon(Icons.rule_folder),
-              // Text(Constants.coinGame),
-              Text('Lanzamiento de Moneda'),
+              const Icon(Icons.rule_folder),
+              Text(Constants.coinGame)
             ],
           ),
         )

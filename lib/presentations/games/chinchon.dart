@@ -1,50 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:game_score/utils/constants.dart';
 
 class Chinchon extends StatefulWidget {
-  const Chinchon({super.key});
+  final List<String> playerNames;
 
+  const Chinchon({super.key, required this.playerNames});
 
   @override
-  State<Chinchon> createState() => _ChinchonState();
+  _ChinchonState createState() => _ChinchonState();
 }
 
 class _ChinchonState extends State<Chinchon> {
-  int _counter = 0;
+  late List<int> _globalScores;
+  List<TextEditingController> _scoreInputControllers = [];
 
-  void _incrementCounter() {
-    setState(() {
+  @override
+  void initState() {
+    super.initState();
+    _globalScores = List.filled(widget.playerNames.length, 0);
+    _scoreInputControllers = List.generate(widget.playerNames.length, (index) => TextEditingController());
+  }
 
-      _counter++;
-    });
+  @override
+  void dispose() {
+    for (var controller in _scoreInputControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  void _confirmScores() {
+    for (int i = 0; i < widget.playerNames.length; i++) {
+      int score = int.tryParse(_scoreInputControllers[i].text) ?? 0;
+      setState(() {
+        _globalScores[i] += score;
+        _scoreInputControllers[i].clear();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(Constants.chinchonGame),
+        title: const Text('Puntuación Chinchón'),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (int i = 0; i < widget.playerNames.length; i++)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(labelText: 'Nombre jugador ${i + 1}'),
+                        initialValue: widget.playerNames[i],
+                        onChanged: (value) {
+                          widget.playerNames[i] = value;
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: _scoreInputControllers[i],
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(labelText: 'Puntuación'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _confirmScores,
+              child: const Text('Confirmar y sumar puntuaciones'),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            const SizedBox(height: 20),
+            const Text('Puntuaciones Globales:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            for (int i = 0; i < _globalScores.length; i++)
+              Text('Jugador ${i + 1}: ${_globalScores[i]}', style: const TextStyle(fontSize: 18)),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
     );
   }
 }

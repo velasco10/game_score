@@ -3,6 +3,7 @@ import 'package:game_score/presentations/games/chinchon.dart';
 import 'package:game_score/presentations/games/coin.dart';
 import 'package:game_score/presentations/games/dice.dart';
 import 'package:game_score/presentations/games/tennis.dart';
+import 'package:game_score/presentations/menu/setup_page.dart';
 import 'config/theme/app_theme.dart';
 import 'presentations/games/counter.dart';
 import 'presentations/menu.dart';
@@ -24,7 +25,7 @@ class GameScore extends StatelessWidget {
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
           '/': (BuildContext context) => const Menu(),
-          '/chinchon': (BuildContext context) =>const Chinchon(),
+          '/chinchon': (BuildContext context) =>const SetupPage(),
           '/coin': (BuildContext context) =>const Coin(),
           '/counter': (BuildContext context) =>const Counter(),
           '/dice': (BuildContext context) =>const Dice(),

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:game_score/utils/constants.dart';
 
 class Coin extends StatefulWidget {
   const Coin({super.key});
@@ -13,6 +14,7 @@ class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   double _angleX = 0;
   double _angleZ = 0;
+  double _translationY = 0;
   bool _isHeads = true;
   bool _isAnimating = false;
 
@@ -33,6 +35,7 @@ class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {
           _isHeads = Random().nextBool();
           _angleX = 0;
           _angleZ = 0;
+          _translationY = 0;
         });
       }
     });
@@ -50,6 +53,7 @@ class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {
         _isAnimating = true;
         _angleX = 2 * pi;
         _angleZ = Random().nextDouble() * pi - (pi / 2); // Random value between -pi/2 and pi/2
+        _translationY = -100; // Elevación mientras gira (ajusta este valor según tus preferencias)
       });
       _controller.reset();
       _controller.forward();
@@ -60,7 +64,7 @@ class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lanzamiento de moneda'),
+        title: Text(Constants.coinGame),
       ),
       body: Center(
         child: AnimatedBuilder(
@@ -68,14 +72,17 @@ class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {
           builder: (context, child) {
             double rotationAngleX = _angleX * _animation.value;
             double rotationAngleZ = _angleZ * _animation.value;
-            return GestureDetector(
-              onTap: _flipCoin, // Al presionar el icono, se lanza la moneda.
-              child: Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.001)
-                  ..rotateX(rotationAngleX)
-                  ..rotateZ(rotationAngleZ),
+            double translateY = _translationY * (1 - _animation.value); // Elevación mientras gira
+
+            return Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..rotateX(rotationAngleX)
+                ..rotateZ(rotationAngleZ)
+                ..translate(0, translateY, 0),
+              child: GestureDetector(
+                onTap: _flipCoin,
                 child: Icon(
                   _isHeads ? Icons.face : Icons.cancel,
                   size: 150,
