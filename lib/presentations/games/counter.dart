@@ -1,9 +1,10 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 import 'package:game_score/utils/constants.dart';
 
 class Counter extends StatefulWidget {
   const Counter({super.key});
-
 
   @override
   State<Counter> createState() => _CounterState();
@@ -12,10 +13,16 @@ class Counter extends StatefulWidget {
 class _CounterState extends State<Counter> {
   int _counter = 0;
 
+  // void _incrementCounter(int? number) {
+  //   setState(() {
+  //     number.isDefinedAndNotNull ? _counter + number! : _counter++;  
+  //   });
+  // }
+
+  
   void _incrementCounter() {
     setState(() {
-
-      _counter++;
+      _counter++;  
     });
   }
 
@@ -30,8 +37,8 @@ class _CounterState extends State<Counter> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              Constants.numPointsCounter,
             ),
             Text(
               '$_counter',
@@ -40,11 +47,25 @@ class _CounterState extends State<Counter> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
+      floatingActionButton: Column(
+        children: [
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          // FloatingActionButton(
+          //   onPressed: _incrementCounter(10),
+          //   tooltip: 'Increment 10',
+          //   child: const Icon(Icons.forward_10),
+          // ),
+          // FloatingActionButton(
+          //   onPressed: _incrementCounter(-10),
+          //   tooltip: 'Decrement 10',
+          //   child: const Icon(Icons.replay_10),
+          // )
+        ],
+      ),
     );
   }
 }

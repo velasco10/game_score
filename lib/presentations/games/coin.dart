@@ -6,7 +6,7 @@ class Coin extends StatefulWidget {
   const Coin({super.key});
 
   @override
-  _CoinState createState() => _CoinState();
+  State<Coin> createState() => _CoinState();
 }
 
 class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {

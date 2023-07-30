@@ -38,7 +38,7 @@ class MenuList extends StatelessWidget {
           child: Row(
             children: [
               const Icon(Icons.exposure),
-              Text(Constants.diceGame)
+              Text(Constants.counterGame)
             ],
           ),
         ),

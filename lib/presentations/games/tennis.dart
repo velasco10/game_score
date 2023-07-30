@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:game_score/utils/constants.dart';
 
 class Tennis extends StatefulWidget {
   const Tennis({Key? key}) : super(key: key);
 
   @override
-  _TennisState createState() => _TennisState();
+  State<Tennis> createState() => _TennisState();
 }
 
 class _TennisState extends State<Tennis> {
@@ -124,19 +125,19 @@ class _TennisState extends State<Tennis> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Puntuación Tenis'),
+        title: Text(Constants.tennisPuntuation),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text('Jugador 1:'),
+            Text(Constants.tennisPlayer2),
             Row(
               children: [
                 ElevatedButton(
                   onPressed: () => _incrementPlayerPoints(1),
-                  child: const Text('Sumar Punto'),
+                  child: Text(Constants.addPoint),
                 ),
                 const SizedBox(width: 10),
                 Text('$player1Name: ${_getScoreString(player1Points)}',
@@ -144,12 +145,12 @@ class _TennisState extends State<Tennis> {
               ],
             ),
             const SizedBox(height: 20),
-            const Text('Jugador 2:'),
+            Text(Constants.tennisPlayer2),
             Row(
               children: [
                 ElevatedButton(
                   onPressed: () => _incrementPlayerPoints(2),
-                  child: const Text('Sumar Punto'),
+                  child: Text(Constants.addPoint),
                 ),
                 const SizedBox(width: 10),
                 Text('$player2Name: ${_getScoreString(player2Points)}',
@@ -174,18 +175,18 @@ class _TennisState extends State<Tennis> {
               },
             ),
             const SizedBox(height: 20),
-            const Text('Juegos:',
+            Text(Constants.gameValue,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('Jugador 1: $player1Games',
+            Text('$Constants.tennisPlayer1 $player1Games',
                 style: const TextStyle(fontSize: 18)),
-            Text('Jugador 2: $player2Games',
+            Text('$Constants.tennisPlayer2 $player2Games',
                 style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 20),
-            const Text('Sets:',
+            Text(Constants.setValue,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('Jugador 1: $player1Sets',
+            Text('$Constants.tennisPlayer1 $player1Sets',
                 style: const TextStyle(fontSize: 18)),
-            Text('Jugador 2: $player2Sets',
+            Text('$Constants.tennisPlayer2 $player2Sets',
                 style: const TextStyle(fontSize: 18)),
           ],
         ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:game_score/utils/constants.dart';
 
 class Chinchon extends StatefulWidget {
   final List<String> playerNames;
-
+  
   const Chinchon({super.key, required this.playerNames});
 
   @override
-  _ChinchonState createState() => _ChinchonState();
+  State<Chinchon> createState() => _ChinchonState();
 }
 
 class _ChinchonState extends State<Chinchon> {
@@ -42,7 +43,7 @@ class _ChinchonState extends State<Chinchon> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Puntuación Chinchón'),
+        title: Text(Constants.chinchonPuntuation),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -60,25 +61,30 @@ class _ChinchonState extends State<Chinchon> {
                         style: const TextStyle(fontSize: 20),
                       ),
                     ),
-                    Expanded(
-                      child: TextField(
-                        controller: _scoreInputControllers[i],
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(labelText: 'Puntuación'),
-                      ),
-                    ),
                     const SizedBox(width: 10),
                     Text(
                       _globalScores[i].toString(),
                       style: const TextStyle(fontSize: 20),
                     ),
+                    Expanded(
+                      child: TextField(
+                        controller: _scoreInputControllers[i],
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(labelText: Constants.puntuation),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        int.tryParse(_scoreInputControllers[i].text)! - 10;
+                      }, 
+                      icon: const Icon(Icons.replay_10))
                   ],
                 ),
               ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _confirmScores,
-              child: const Text('Confirmar y sumar puntuaciones'),
+              child: Text(Constants.sendPuntuation),
             ),
           ],
         ),
