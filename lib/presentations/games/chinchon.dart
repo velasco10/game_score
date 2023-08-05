@@ -75,7 +75,7 @@ class _ChinchonState extends State<Chinchon> {
                     ),
                     IconButton(
                       onPressed: () {
-                        int.tryParse(_scoreInputControllers[i].text)! - 10;
+                        _scoreInputControllers[i].text = "-10";
                       }, 
                       icon: const Icon(Icons.replay_10))
                   ],

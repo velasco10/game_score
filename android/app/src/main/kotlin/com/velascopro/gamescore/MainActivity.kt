@@ -1,4 +1,4 @@
-package com.example.game_score
+package com.velascopro.gamescore
 
 import io.flutter.embedding.android.FlutterActivity
 

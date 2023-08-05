@@ -27,6 +27,7 @@ class Constants{
     static String tennisPlayer2 = 'Jugador 2:';
     static String setValue = 'Sets:';
     static String gameValue = 'Juegos:';
+    static String result = 'Resultado:';
 
     static String numPointsCounter = 'El contador esta en:';
 }

@@ -7,16 +7,16 @@ class MenuList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(15),
       children: [
         ElevatedButton(
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pushNamed('/chinchon');
-            },
+          },
           child: Row(
             children: [
               const Icon(Icons.deck),
-              Text(Constants.chinchonGame),
+              Text(Constants.chinchonGame, style: const TextStyle(fontSize: 25)),
             ],
           ),
         ),
@@ -27,7 +27,7 @@ class MenuList extends StatelessWidget {
           child: Row(
             children: [
               const Icon(Icons.sports_tennis),
-              Text(Constants.tennisGame)
+              Text(Constants.tennisGame, style: const TextStyle(fontSize: 25))
             ],
           ),
         ),
@@ -36,10 +36,7 @@ class MenuList extends StatelessWidget {
             Navigator.of(context, rootNavigator: true).pushNamed('/counter');
           },
           child: Row(
-            children: [
-              const Icon(Icons.exposure),
-              Text(Constants.counterGame)
-            ],
+            children: [const Icon(Icons.exposure), Text(Constants.counterGame, style: const TextStyle(fontSize: 25))],
           ),
         ),
         ElevatedButton(
@@ -47,21 +44,15 @@ class MenuList extends StatelessWidget {
             Navigator.of(context, rootNavigator: true).pushNamed('/dice');
           },
           child: Row(
-            children: [
-              const Icon(Icons.casino),
-              Text(Constants.diceGame)
-            ],
+            children: [const Icon(Icons.casino), Text(Constants.diceGame, style: const TextStyle(fontSize: 25))],
           ),
         ),
         ElevatedButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.of(context, rootNavigator: true).pushNamed('/coin');
           },
           child: Row(
-            children: [
-              const Icon(Icons.rule_folder),
-              Text(Constants.coinGame)
-            ],
+            children: [const Icon(Icons.rule_folder), Text(Constants.coinGame, style: const TextStyle(fontSize: 25))],
           ),
         )
       ],

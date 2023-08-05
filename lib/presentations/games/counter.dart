@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:game_score/utils/constants.dart';
 
@@ -15,14 +13,31 @@ class _CounterState extends State<Counter> {
 
   // void _incrementCounter(int? number) {
   //   setState(() {
-  //     number.isDefinedAndNotNull ? _counter + number! : _counter++;  
+  //     number.isDefinedAndNotNull ? _counter + number! : _counter++;
   //   });
   // }
 
-  
   void _incrementCounter() {
     setState(() {
-      _counter++;  
+      _counter++;
+    });
+  }
+  
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  void _incrementCounter10() {
+    setState(() {
+      _counter = _counter + 10;
+    });
+  }
+  
+  void _decrementCounter10() {
+    setState(() {
+      _counter = _counter - 10;
     });
   }
 
@@ -47,23 +62,37 @@ class _CounterState extends State<Counter> {
           ],
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ),
       floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
             onPressed: _incrementCounter,
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
-          // FloatingActionButton(
-          //   onPressed: _incrementCounter(10),
-          //   tooltip: 'Increment 10',
-          //   child: const Icon(Icons.forward_10),
-          // ),
-          // FloatingActionButton(
-          //   onPressed: _incrementCounter(-10),
-          //   tooltip: 'Decrement 10',
-          //   child: const Icon(Icons.replay_10),
-          // )
+          const SizedBox(height: 20,),
+          FloatingActionButton(
+            onPressed: _decrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.remove),
+          ),
+          const SizedBox(height: 20,),
+          FloatingActionButton(
+            onPressed: _incrementCounter10,
+            tooltip: 'Increment 10',
+            child: const Icon(Icons.forward_10),
+          ),
+          const SizedBox(height: 20,),
+          FloatingActionButton(
+            onPressed: _decrementCounter10,
+            tooltip: 'Decrement 10',
+            child: const Icon(Icons.replay_10),
+          )
         ],
       ),
     );

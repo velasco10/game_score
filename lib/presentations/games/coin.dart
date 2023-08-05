@@ -79,8 +79,8 @@ class _CoinState extends State<Coin> with SingleTickerProviderStateMixin {
               transform: Matrix4.identity()
                 ..setEntry(3, 2, 0.001)
                 ..rotateX(rotationAngleX)
-                ..rotateZ(rotationAngleZ)
-                ..translate(0, translateY, 0),
+                ..rotateZ(rotationAngleZ),
+                // ..translate(0, translateY, 0)
               child: GestureDetector(
                 onTap: _flipCoin,
                 child: Icon(

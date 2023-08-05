@@ -21,6 +21,8 @@ class _TennisState extends State<Tennis> {
   bool advantagePlayer1 = false;
   bool advantagePlayer2 = false;
 
+  List<SetEntry> setEntries = [];
+
   String _getScoreString(int points) {
     if (points == 0) {
       return '0';
@@ -41,8 +43,14 @@ class _TennisState extends State<Tennis> {
         if (!advantagePlayer1) {
           if (advantagePlayer2) {
             advantagePlayer2 = false; // Pierde la ventaja
+            setState(() {
+              player2Points--;
+            });
           } else {
             advantagePlayer1 = true; // Ventaja para jugador 1
+            setState(() {
+              player1Points++;
+            });
           }
         } else {
           _addGameToPlayer(playerNumber); // Gana el juego
@@ -51,8 +59,14 @@ class _TennisState extends State<Tennis> {
         if (!advantagePlayer2) {
           if (advantagePlayer1) {
             advantagePlayer1 = false; // Pierde la ventaja
+            setState(() {
+              player1Points--;
+            });
           } else {
-            advantagePlayer2 = true; // Ventaja para jugador 2
+            advantagePlayer2 = true;
+            setState(() {
+              player2Points++;
+            }); // Ventaja para jugador 2
           }
         } else {
           _addGameToPlayer(playerNumber); // Gana el juego
@@ -113,12 +127,48 @@ class _TennisState extends State<Tennis> {
   void _addSetToPlayer(int playerNumber) {
     if (playerNumber == 1) {
       player1Sets++;
+      setEntries.add(SetEntry(
+        player1Games: player1Games,
+        player2Games: player2Games,
+      ));
+      if (player1Sets >= 2) {
+        // Jugador 1 ha ganado la partida
+        _showWinnerDialog(player1Name);
+      }
     } else if (playerNumber == 2) {
       player2Sets++;
+      setEntries.add(SetEntry(
+        player1Games: player1Games,
+        player2Games: player2Games,
+      ));
+      if (player2Sets >= 2) {
+        // Jugador 2 ha ganado la partida
+        _showWinnerDialog(player2Name);
+      }
     }
 
     player1Games = 0;
     player2Games = 0;
+  }
+
+  void _showWinnerDialog(String playerName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('¡Partida finalizada!'),
+          content: Text('$playerName ha ganado la partida.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -132,7 +182,7 @@ class _TennisState extends State<Tennis> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(Constants.tennisPlayer2),
+            Text(Constants.tennisPlayer1),
             Row(
               children: [
                 ElevatedButton(
@@ -175,22 +225,36 @@ class _TennisState extends State<Tennis> {
               },
             ),
             const SizedBox(height: 20),
-            Text(Constants.gameValue,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('$Constants.tennisPlayer1 $player1Games',
-                style: const TextStyle(fontSize: 18)),
-            Text('$Constants.tennisPlayer2 $player2Games',
-                style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 20),
-            Text(Constants.setValue,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text('$Constants.tennisPlayer1 $player1Sets',
-                style: const TextStyle(fontSize: 18)),
-            Text('$Constants.tennisPlayer2 $player2Sets',
-                style: const TextStyle(fontSize: 18)),
+            Text('Puntuaciones de Sets',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            DataTable(
+              columns: [
+                DataColumn(label: Text('Jugador 1')),
+                DataColumn(label: Text('Jugador 2')),
+                DataColumn(label: Text('Resultado')),
+              ],
+              rows: setEntries.map((entry) {
+                return DataRow(cells: [
+                  DataCell(Text('${entry.player1Games}')),
+                  DataCell(Text('${entry.player2Games}')),
+                  DataCell(Text('${entry.player1Games}-${entry.player2Games}')),
+                ]);
+              }).toList(),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class SetEntry {
+  int player1Games;
+  int player2Games;
+
+  SetEntry({
+    required this.player1Games,
+    required this.player2Games,
+  });
 }
